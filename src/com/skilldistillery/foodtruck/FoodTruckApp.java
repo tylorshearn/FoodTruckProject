@@ -3,99 +3,98 @@ package com.skilldistillery.foodtruck;
 import java.util.Scanner;
 
 public class FoodTruckApp {
+	Scanner kb = new Scanner(System.in);
+	private int numericIDCounter = 0;
 
-	@SuppressWarnings("static-access")
 	public static void main(String[] args) {
-		Scanner kb = new Scanner(System.in);
 
+		System.out.println(
+				"Welcome to Food Trucks! You are going to be inputting a name, food type, and numeric rating for\n"
+						+ "up to 5 food trucks.");
 		FoodTruckApp foodTruckApp = new FoodTruckApp();
 
 		int numericIDCounter = 0;
 
 		FoodTruck[] foodTruckB;
 
-		foodTruckB = new FoodTruck[4];
+		foodTruckB = new FoodTruck[5];
+		foodTruckApp.getTrucks(foodTruckB);
+		
 
-		FoodTruck foodTruck1;
-		foodTruck1 = new FoodTruck();
-		System.out.println("You are going to be inputting a name, food type, and numeric rating for\n"
-				+ "up to 5 food trucks. Please start with the name of the first food truck: ");
-		foodTruck1.name = kb.nextLine();
-		System.out.println("Input the food type for the first food truck: ");
-		foodTruck1.foodType = kb.nextLine();
-		System.out.println("Input a numeric rating from 0-5 for the first food truck. Use whole numbers only: ");
-		foodTruck1.numericRating = kb.nextInt();
-		foodTruck1.numericID++;
-		numericIDCounter = foodTruck1.numericID;
-		System.out.println(foodTruck1.numericID);
-		System.out.println("If you'd like to open the menu, input \"quit\" when prompted\n"
-				+ "for the name of any of the following food trucks.");
-
-		FoodTruck foodTruck2;
-		foodTruck2 = new FoodTruck();
-		System.out.println("Input the name of the second food truck: ");
-		foodTruck2.name = kb.next();
-		while (foodTruck2.name.equals("quit")) {
-			menu();
-		}
-		System.out.println("Input the food type for the second food truck: ");
-		foodTruck2.foodType = kb.next();
-		System.out.println("Input a numeric rating from 0-5 for the second food truck. Use whole numbers only: ");
-		foodTruck2.numericRating = kb.nextInt();
-		foodTruck2.numericID++;
-		numericIDCounter = foodTruck2.numericID;
-		System.out.println(foodTruck2.numericID);
-
-		FoodTruck foodTruck3;
-		foodTruck3 = new FoodTruck();
-		System.out.println("Input the name of the third food truck: ");
-		foodTruck3.name = kb.next();
-		System.out.println("Input the food type for the third food truck: ");
-		foodTruck3.foodType = kb.next();
-		System.out.println("Input a numeric rating from 0-5 for the third food truck. Use whole numbers only: ");
-		foodTruck3.numericRating = kb.nextInt();
-		foodTruck3.numericID++;
-		numericIDCounter = foodTruck3.numericID;
-		System.out.println(foodTruck3.numericID);
-
-		FoodTruck foodTruck4;
-		foodTruck4 = new FoodTruck();
-		System.out.println("Input the name of the fourth food truck: ");
-		foodTruck4.name = kb.next();
-		System.out.println("Input the food type for the fourth food truck: ");
-		foodTruck4.foodType = kb.next();
-		System.out.println("Input a numeric rating from 0-5 for the fourth food truck. Use whole numbers only: ");
-		foodTruck4.numericRating = kb.nextInt();
-		foodTruck4.numericID++;
-		numericIDCounter = foodTruck4.numericID;
-		System.out.println(foodTruck4.numericID);
-
-		FoodTruck foodTruck5;
-		foodTruck5 = new FoodTruck();
-		System.out.println("Input the name of the fifth food truck: ");
-		foodTruck5.name = kb.next();
-		System.out.println("Input the food type for the fifth food truck: ");
-		foodTruck5.foodType = kb.next();
-		System.out.println("Input a numeric rating from 0-5 for the fifth food truck. Use whole numbers only: ");
-		foodTruck5.numericRating = kb.nextInt();
-		foodTruck5.numericID++;
-		numericIDCounter = foodTruck5.numericID;
-		System.out.println(foodTruck5.numericID);
 	}
 
-	String.menu(String menu, Scanner kb) {
+	public void getTrucks(FoodTruck[] trucks) {
+		// in a loop, ask the user for truck details, one truck at a time.
+		for (int i = 0; i < 5; i++) {
+			System.out.println("Input the name for the next food truck: ");
+			String name = kb.nextLine();
+			if (name.equals("quit")) {
+				menu(trucks);
+				break;
+			}
+			System.out.println("Input the food type for the next food truck: ");
+			String foodType = kb.nextLine();
+			System.out.println("Input a numeric rating from 0-5 for the next food truck. Use whole numbers only: ");
+			int numericRating = kb.nextInt();
+			kb.nextLine();
+			trucks[i] = new FoodTruck(name, foodType, numericRating);
+			System.out.println(trucks[i]);
+			numericIDCounter++;
+			System.out.println("If you'd like to open the menu, input \"quit\" when prompted\n"
+					+ "for the name of any of the following food trucks. Otherwise, when 5 food trucks have been added, the menu will appear.");
+			if (numericIDCounter == 5) {
+				menu(trucks);
+
+			}
+		}
+
+	}
+
+	void menu(FoodTruck[] trucks) {
+		boolean keepGoing = true;
+		while (keepGoing == true) {
+			
+		System.out.println("~~~~~MENU~~~~~");
 		System.out.println("List all existing food trucks: Input \"1\"");
 		System.out.println("See the average rating of food trucks: Input \"2\"");
 		System.out.println("Display the highest-rated food truck: Input \"3\"");
 		System.out.println("Quit the program: Input \"4\"");
-		
+
 		int switchChoice = 0;
 		switchChoice = kb.nextInt();
-		switch(switchChoice) {
+		switch (switchChoice) {
 		case 1:
-			System.out.println(foodTruck1.name + );
-		
-		}
-	}
+			for (int i = 0; i < trucks.length; i++) {
+				System.out.println("All existing food trucks: " + trucks[i].toString());
+			}
+			break;
+		case 2:
+			double sumForAverageRating = 0;
+			for (int i = 0; i < trucks.length; i++) {
+				sumForAverageRating += trucks[i].getNumericRating();
+			}
+			double averageRating = 0;
+			averageRating = sumForAverageRating / trucks.length;
+			System.out.println("The average rating of food trucks is: " + averageRating);
+			break;
+		case 3:
+			FoodTruck highestRatedTruck = trucks[0];
+			for (int i = 0; i < trucks.length; i++) {
 
+				if (trucks[i].getNumericRating() > highestRatedTruck.getNumericRating()) {
+					highestRatedTruck = trucks[i];
+				} 
+			}
+			System.out.println("The highest-rated food trucks is: " + highestRatedTruck.getName() + "(ID: "
+					+ highestRatedTruck.getID() + ")" + ", with food type: " + highestRatedTruck.getFoodType()
+					+ ", with a rating of: " + highestRatedTruck.getNumericRating());
+			break;
+		case 4:
+			System.out.println("Thanks for using Food Trucks!");
+			keepGoing = false;
+			kb.close();
+		}
+		}
+
+	}
 }
