@@ -1,8 +1,8 @@
 ## FoodTruckProject
 
- ![](Screen%20Shot%202021-01-29%20at%204.21.33%20PM.png)
+ ![](Images/Screen%20Shot%202021-01-29%20at%204.21.33%20PM.png)
 
- ![](Screen%20Shot%202021-01-29%20at%204.22.13%20PM.png)
+ ![](Images/Screen%20Shot%202021-01-29%20at%204.22.13%20PM.png)
 
 ### Description
 
